@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\CarouselController;
 use App\Http\Controllers\Admin\KonfigurasiController;
+use App\Http\Controllers\Admin\ArtikelController;
+use App\Http\Controllers\ArtikelPublicController;
 
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -15,6 +17,8 @@ Route::get('/visi-misi', function () {
 Route::get('/sambutan', function () {
     return view('profil.sambutan');
 })->name('sambutan');
+
+
 
 // Jurusan Routes
 Route::prefix('jurusan')->name('jurusan.')->group(function () {
@@ -28,12 +32,8 @@ Route::prefix('jurusan')->name('jurusan.')->group(function () {
 
 // Artikel Routes
 Route::prefix('artikel')->name('artikel.')->group(function () {
-    Route::get('/', function () {
-        return view('artikel.index');
-    })->name('index');
-    Route::get('/{slug}', function ($slug) {
-        return view('artikel.show', ['slug' => $slug]);
-    })->name('show');
+    Route::get('/', [ArtikelPublicController::class, 'index'])->name('index');
+    Route::get('/{slug}', [ArtikelPublicController::class, 'show'])->name('show');
 });
 
 // Guru Routes
@@ -65,7 +65,7 @@ Route::prefix('kontak')->name('kontak.')->group(function () {
 });
 
 Route::prefix('admin')->group(function () {
-    // Route login (guest only)
+    // Route login admin
     Route::middleware('guest:admin')->group(function () {
         Route::get('/', [AuthController::class, 'showLoginForm'])->name('admin.login');
         Route::post('/login', [AuthController::class, 'login'])->name('admin.login.post');
@@ -83,12 +83,17 @@ Route::prefix('admin')->group(function () {
             'update' => 'admin.carousel.update',
             'destroy' => 'admin.carousel.destroy',
         ]);
-        Route::get('/artikel', function () {
-            return redirect()->route('admin.dashboard');
-        })->name('admin.artikel.index');
-        Route::get('/artikel/create', function () {
-            return redirect()->route('admin.dashboard');
-        })->name('admin.artikel.create');
+        Route::resource('artikel', ArtikelController::class)->names([
+            'index' => 'admin.artikel.index',
+            'create' => 'admin.artikel.create',
+            'store' => 'admin.artikel.store',
+            'edit' => 'admin.artikel.edit',
+            'update' => 'admin.artikel.update',
+            'destroy' => 'admin.artikel.destroy',
+        ]);
+        // Upload Image dari TinyMCE
+        Route::post('/upload-image', [ArtikelController::class, 'uploadImage'])
+            ->name('admin.upload.image');
 
         Route::get('/jurusan', function () {
             return redirect()->route('admin.dashboard');
@@ -136,7 +141,7 @@ Route::prefix('admin')->group(function () {
         Route::put('/konfigurasi', [KonfigurasiController::class, 'update'])->name('admin.konfigurasi.update');
         Route::delete('/konfigurasi/logo', [KonfigurasiController::class, 'deleteLogo'])->name('admin.konfigurasi.deleteLogo');
         Route::delete('/konfigurasi/favicon', [KonfigurasiController::class, 'deleteFavicon'])->name('admin.konfigurasi.deleteFavicon');
-        
+
         // Media Sosial Routes (dalam konfigurasi)
         Route::post('/konfigurasi/media-sosial', [KonfigurasiController::class, 'storeMediaSosial'])->name('admin.konfigurasi.media-sosial.store');
         Route::put('/konfigurasi/media-sosial/{id}', [KonfigurasiController::class, 'updateMediaSosial'])->name('admin.konfigurasi.media-sosial.update');
@@ -147,5 +152,15 @@ Route::prefix('admin')->group(function () {
         })->name('admin.pengaduan.index');
 
         Route::post('/logout', [AuthController::class, 'logout'])->name('admin.logout');
+
+        Route::get('/test-timezone', function () {
+            return [
+                'config_timezone' => config('app.timezone'),
+                'php_timezone' => date_default_timezone_get(),
+                'current_time' => now(),
+                'carbon_now' => \Carbon\Carbon::now(),
+                'formatted' => now()->format('Y-m-d H:i:s T'),
+            ];
+        });
     });
 });

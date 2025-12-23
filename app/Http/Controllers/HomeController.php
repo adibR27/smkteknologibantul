@@ -14,7 +14,13 @@ class HomeController extends Controller
         $carousel = Carousel::all();
         $kepalaSekolah = KepalaSekolah::all();
         $jurusan = Jurusan::all();
-        $artikel = Artikel::orderBy('tanggal_publish', 'desc')->get();
+        
+        // Hanya tampilkan artikel yang sudah dipublish
+        $artikel = Artikel::with('penulis')
+            ->where('tanggal_publish', '<=', now())
+            ->orderBy('tanggal_publish', 'desc')
+            ->take(3) // Ambil 3 artikel terbaru untuk homepage
+            ->get();
 
         return view('home', compact('carousel', 'kepalaSekolah', 'jurusan', 'artikel'));
     }

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
+use Illuminate\Pagination\Paginator;
 use App\Models\Konfigurasi;
 use App\Models\MediaSosial;
 
@@ -16,15 +17,20 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        // Share konfigurasi dan media sosial ke semua view
-        View::composer('*', function ($view) {
-            // Ambil konfigurasi pertama (biasanya hanya ada 1 record)
-            $konfigurasi = Konfigurasi::first();
+        // Set Timezone Indonesia (WIB)
+        date_default_timezone_set('Asia/Jakarta');
 
-            // Ambil semua media sosial, urutkan berdasarkan created_at
+        // Set locale Carbon ke Bahasa Indonesia
+        \Carbon\Carbon::setLocale('id');
+
+        // Set Tailwind untuk pagination
+        Paginator::useTailwind();
+
+        // Share konfigurasi ke semua view
+        View::composer('*', function ($view) {
+            $konfigurasi = Konfigurasi::first();
             $mediaSosial = MediaSosial::orderBy('created_at', 'asc')->get();
 
-            // Share ke semua view
             $view->with([
                 'globalKonfigurasi' => $konfigurasi,
                 'globalMediaSosial' => $mediaSosial
