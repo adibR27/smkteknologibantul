@@ -4,8 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'SMK Teknologi Bantul')</title>
+    <!-- Title -->
+    <title>@yield('title', 'Beranda') - {{ $globalKonfigurasi->nama_sekolah ?? 'SMK Teknologi Bantul' }}</title>
 
+    <!-- Favicon Dinamis dari Database -->
+    @if ($globalKonfigurasi && $globalKonfigurasi->favicon)
+        <link rel="icon" type="image/x-icon" href="{{ asset('storage/' . $globalKonfigurasi->favicon) }}">
+        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('storage/' . $globalKonfigurasi->favicon) }}">
+        <link rel="apple-touch-icon" href="{{ asset('storage/' . $globalKonfigurasi->favicon) }}">
+    @else
+        <!-- Fallback ke logo jika favicon tidak ada -->
+        @if ($globalKonfigurasi && $globalKonfigurasi->logo)
+            <link rel="icon" type="image/png" href="{{ asset('storage/' . $globalKonfigurasi->logo) }}">
+            <link rel="shortcut icon" type="image/png" href="{{ asset('storage/' . $globalKonfigurasi->logo) }}">
+            <link rel="apple-touch-icon" href="{{ asset('storage/' . $globalKonfigurasi->logo) }}">
+        @endif
+    @endif
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 

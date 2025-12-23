@@ -1,98 +1,139 @@
-<footer class="bg-blue-900 text-white mt-12">
+<footer class="mt-12 bg-blue-900 text-white">
     <!-- FOOTER CONTENT -->
-    <div class="max-w-7xl mx-auto px-4 py-12">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <div class="mx-auto max-w-7xl px-4 py-12">
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-4">
 
-            <!-- KOLOM 1: About Sekolah -->
+            <!-- KOLOM 1: About Sekolah (DINAMIS) -->
             <div>
-                <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-                    <i class="fas fa-graduation-cap"></i>
-                    SMK Teknologi Bantul
+                <h3 class="mb-4 flex items-center gap-2 text-xl font-bold">
+                    @if ($globalKonfigurasi && $globalKonfigurasi->logo)
+                        <img src="{{ asset('storage/' . $globalKonfigurasi->logo) }}"
+                            alt="{{ $globalKonfigurasi->nama_sekolah ?? 'Logo' }}" class="h-8 w-8 rounded object-contain">
+                    @else
+                        <i class="fas fa-graduation-cap"></i>
+                    @endif
+                    {{ $globalKonfigurasi->nama_sekolah ?? 'SMK Teknologi Bantul' }}
                 </h3>
-                <p class="text-blue-100 text-sm leading-relaxed">
-                    Sekolah Menengah Kejuruan yang berfokus pada teknologi dan inovasi untuk menghasilkan tenaga kerja profesional dan berdaya saing tinggi.
+                <p class="text-sm leading-relaxed text-blue-100">
+                    {{ $globalKonfigurasi->deskripsi ?? 'Sekolah Menengah Kejuruan yang berfokus pada teknologi dan inovasi untuk menghasilkan tenaga kerja profesional dan berdaya saing tinggi.' }}
                 </p>
             </div>
 
             <!-- KOLOM 2: Quick Links -->
             <div>
-                <h4 class="text-lg font-bold mb-4">Menu Cepat</h4>
+                <h4 class="mb-4 text-lg font-bold">Menu Cepat</h4>
                 <ul class="space-y-2 text-blue-100">
                     <li>
-                        <a href="{{ route('home') }}" class="hover:text-white transition">
+                        <a href="{{ route('home') }}" class="transition hover:text-white">
                             <i class="fas fa-chevron-right mr-2"></i>Beranda
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="hover:text-white transition">
+                        <a href="{{ route('visi-misi') }}" class="transition hover:text-white">
+                            <i class="fas fa-chevron-right mr-2"></i>Visi & Misi
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('jurusan.index') }}" class="transition hover:text-white">
                             <i class="fas fa-chevron-right mr-2"></i>Jurusan
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="hover:text-white transition">
+                        <a href="{{ route('artikel.index') }}" class="transition hover:text-white">
                             <i class="fas fa-chevron-right mr-2"></i>Artikel
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="hover:text-white transition">
+                        <a href="{{ route('galeri.index') }}" class="transition hover:text-white">
                             <i class="fas fa-chevron-right mr-2"></i>Galeri
                         </a>
                     </li>
-                </ul>
-            </div>
-
-            <!-- KOLOM 3: Contact Info -->
-            <div>
-                <h4 class="text-lg font-bold mb-4">Hubungi Kami</h4>
-                <ul class="space-y-3 text-blue-100 text-sm">
-                    <li class="flex items-start gap-2">
-                        <i class="fas fa-phone mt-1 text-blue-300"></i>
-                        <span>(0274) XXXX-XXXX</span>
-                    </li>
-                    <li class="flex items-start gap-2">
-                        <i class="fas fa-envelope mt-1 text-blue-300"></i>
-                        <a href="mailto:info@smkteknologi.sch.id" class="hover:text-white transition">
-                            info@smkteknologi.sch.id
+                    <li>
+                        <a href="{{ route('kontak.index') }}" class="transition hover:text-white">
+                            <i class="fas fa-chevron-right mr-2"></i>Kontak
                         </a>
                     </li>
-                    <li class="flex items-start gap-2">
-                        <i class="fas fa-map-marker-alt mt-1 text-blue-300"></i>
-                        <span>Jl. Raya Bantul, Yogyakarta 55713</span>
-                    </li>
                 </ul>
             </div>
 
-            <!-- KOLOM 4: Social Media -->
+            <!-- KOLOM 3: Contact Info (DINAMIS) -->
             <div>
-                <h4 class="text-lg font-bold mb-4">Ikuti Kami</h4>
-                <p class="text-blue-100 text-sm mb-4">
+                <h4 class="mb-4 text-lg font-bold">Hubungi Kami</h4>
+                <ul class="space-y-3 text-sm text-blue-100">
+                    @if ($globalKonfigurasi && $globalKonfigurasi->no_telepon)
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-phone mt-1 text-blue-300"></i>
+                            <a href="tel:{{ $globalKonfigurasi->no_telepon }}" class="transition hover:text-white">
+                                {{ $globalKonfigurasi->no_telepon }}
+                            </a>
+                        </li>
+                    @endif
+
+                    @if ($globalKonfigurasi && $globalKonfigurasi->email)
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-envelope mt-1 text-blue-300"></i>
+                            <a href="mailto:{{ $globalKonfigurasi->email }}" class="transition hover:text-white">
+                                {{ $globalKonfigurasi->email }}
+                            </a>
+                        </li>
+                    @endif
+
+                    @if ($globalKonfigurasi && $globalKonfigurasi->alamat)
+                        <li class="flex items-start gap-2">
+                            <i class="fas fa-map-marker-alt mt-1 text-blue-300"></i>
+                            <span>{{ $globalKonfigurasi->alamat }}</span>
+                        </li>
+                    @endif
+                </ul>
+            </div>
+
+            <!-- KOLOM 4: Social Media (DINAMIS) -->
+            <div>
+                <h4 class="mb-4 text-lg font-bold">Ikuti Kami</h4>
+                <p class="mb-4 text-sm text-blue-100">
                     Follow kami di media sosial untuk update terbaru
                 </p>
-                <div class="flex gap-3">
-                    <a href="#" class="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center hover:bg-white hover:text-blue-900 transition">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#" class="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center hover:bg-white hover:text-blue-900 transition">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="#" class="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center hover:bg-white hover:text-blue-900 transition">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="#" class="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center hover:bg-white hover:text-blue-900 transition">
-                        <i class="fab fa-youtube"></i>
-                    </a>
-                </div>
+
+                @if ($globalMediaSosial && $globalMediaSosial->count() > 0)
+                    <div class="flex flex-wrap gap-3">
+                        @foreach ($globalMediaSosial as $media)
+                            <a href="{{ $media->link_url }}" target="_blank" rel="noopener noreferrer"
+                                title="{{ $media->platform }}"
+                                class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-700 transition hover:bg-white hover:text-blue-900">
+                                <i class="{{ $media->icon }}"></i>
+                            </a>
+                        @endforeach
+                    </div>
+                @else
+                    <!-- Fallback jika belum ada media sosial -->
+                    <div class="flex gap-3">
+                        <a href="#"
+                            class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-700 transition hover:bg-white hover:text-blue-900">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#"
+                            class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-700 transition hover:bg-white hover:text-blue-900">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#"
+                            class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-700 transition hover:bg-white hover:text-blue-900">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                @endif
             </div>
 
         </div>
 
         <!-- DIVIDER -->
-        <hr class="border-blue-700 my-8">
+        <hr class="my-8 border-blue-700">
 
         <!-- BOTTOM: COPYRIGHT -->
-        <div class="flex flex-col md:flex-row justify-between items-center text-blue-100 text-sm">
-            <p>&copy; 2025 SMK Teknologi Bantul. All rights reserved.</p>
-            <p>Designed with <i class="fas fa-heart text-red-500"></i> by Development Team</p>
+        <div class="flex justify-center text-center text-sm text-blue-100">
+            <p>
+                &copy; {{ date('Y') }} {{ $globalKonfigurasi->nama_sekolah ?? 'SMK Teknologi Bantul' }}.
+                All rights reserved.
+            </p>
         </div>
     </div>
 </footer>

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\CarouselController;
+use App\Http\Controllers\Admin\KonfigurasiController;
 
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -130,9 +131,16 @@ Route::prefix('admin')->group(function () {
             return redirect()->route('admin.dashboard');
         })->name('admin.kepala-sekolah.index');
 
-        Route::get('/konfigurasi', function () {
-            return redirect()->route('admin.dashboard');
-        })->name('admin.konfigurasi.index');
+        // Konfigurasi Routes
+        Route::get('/konfigurasi', [KonfigurasiController::class, 'index'])->name('admin.konfigurasi.index');
+        Route::put('/konfigurasi', [KonfigurasiController::class, 'update'])->name('admin.konfigurasi.update');
+        Route::delete('/konfigurasi/logo', [KonfigurasiController::class, 'deleteLogo'])->name('admin.konfigurasi.deleteLogo');
+        Route::delete('/konfigurasi/favicon', [KonfigurasiController::class, 'deleteFavicon'])->name('admin.konfigurasi.deleteFavicon');
+        
+        // Media Sosial Routes (dalam konfigurasi)
+        Route::post('/konfigurasi/media-sosial', [KonfigurasiController::class, 'storeMediaSosial'])->name('admin.konfigurasi.media-sosial.store');
+        Route::put('/konfigurasi/media-sosial/{id}', [KonfigurasiController::class, 'updateMediaSosial'])->name('admin.konfigurasi.media-sosial.update');
+        Route::delete('/konfigurasi/media-sosial/{id}', [KonfigurasiController::class, 'deleteMediaSosial'])->name('admin.konfigurasi.media-sosial.delete');
 
         Route::get('/pengaduan', function () {
             return redirect()->route('admin.dashboard');

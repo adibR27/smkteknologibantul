@@ -5,7 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Dashboard') - Admin SMK Teknologi Bantul</title>
+    <title>@yield('title', 'Dashboard') - {{ $globalKonfigurasi->nama_sekolah ?? 'Admin SMK Teknologi Bantul' }}</title>
+
+    <!-- Favicon Dinamis dari Database -->
+    @if($globalKonfigurasi && $globalKonfigurasi->favicon)
+        <link rel="icon" type="image/x-icon" href="{{ asset('storage/' . $globalKonfigurasi->favicon) }}">
+        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('storage/' . $globalKonfigurasi->favicon) }}">
+        <link rel="apple-touch-icon" href="{{ asset('storage/' . $globalKonfigurasi->favicon) }}">
+    @else
+        <!-- Fallback ke logo jika favicon tidak ada -->
+        @if($globalKonfigurasi && $globalKonfigurasi->logo)
+            <link rel="icon" type="image/png" href="{{ asset('storage/' . $globalKonfigurasi->logo) }}">
+            <link rel="shortcut icon" type="image/png" href="{{ asset('storage/' . $globalKonfigurasi->logo) }}">
+            <link rel="apple-touch-icon" href="{{ asset('storage/' . $globalKonfigurasi->logo) }}">
+        @endif
+    @endif
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -170,14 +184,13 @@
                                     class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 font-semibold text-white transition hover:bg-blue-700">
                                     {{ strtoupper(substr(Auth::guard('admin')->user()->nama_lengkap, 0, 1)) }}
                                 </button>
-                                <!-- Dropdown dengan z-index lebih tinggi -->
                                 <div id="userMenuDropdown"
                                     class="absolute right-0 z-50 mt-2 hidden w-48 rounded-lg border border-gray-200 bg-white py-2 shadow-xl">
                                     <a href="#"
                                         class="block px-4 py-2 text-sm text-gray-700 transition hover:bg-gray-100">
                                         <i class="fas fa-user mr-2"></i> Profile
                                     </a>
-                                    <a href="#"
+                                    <a href="{{ route('admin.konfigurasi.index') }}"
                                         class="block px-4 py-2 text-sm text-gray-700 transition hover:bg-gray-100">
                                         <i class="fas fa-cog mr-2"></i> Pengaturan
                                     </a>
@@ -201,7 +214,7 @@
                 <div class="p-6">
                     <!-- Alerts -->
                     @if (session('success'))
-                        <div class="mb-6 rounded-r-lg border-l-4 border-green-500 bg-green-50 p-4">
+                        <div class="alert-message mb-6 rounded-r-lg border-l-4 border-green-500 bg-green-50 p-4">
                             <div class="flex items-center">
                                 <i class="fas fa-check-circle mr-3 text-green-500"></i>
                                 <p class="text-green-700">{{ session('success') }}</p>
@@ -210,7 +223,7 @@
                     @endif
 
                     @if (session('error'))
-                        <div class="mb-6 rounded-r-lg border-l-4 border-red-500 bg-red-50 p-4">
+                        <div class="alert-message mb-6 rounded-r-lg border-l-4 border-red-500 bg-red-50 p-4">
                             <div class="flex items-center">
                                 <i class="fas fa-exclamation-circle mr-3 text-red-500"></i>
                                 <p class="text-red-700">{{ session('error') }}</p>
@@ -219,7 +232,7 @@
                     @endif
 
                     @if ($errors->any())
-                        <div class="mb-6 rounded-r-lg border-l-4 border-red-500 bg-red-50 p-4">
+                        <div class="alert-message mb-6 rounded-r-lg border-l-4 border-red-500 bg-red-50 p-4">
                             <div class="flex items-start">
                                 <i class="fas fa-exclamation-circle mr-3 mt-1 text-red-500"></i>
                                 <div>
@@ -251,9 +264,10 @@
             sidebar.classList.toggle('-translate-x-full');
         });
 
-        // Auto hide alerts after 5 seconds
+        // Auto hide alerts after 5 seconds - DIPERBAIKI DENGAN SELECTOR YANG LEBIH SPESIFIK
         setTimeout(() => {
-            const alerts = document.querySelectorAll('[class*="bg-green-50"], [class*="bg-red-50"]');
+            // Gunakan class 'alert-message' untuk menandai alert yang boleh dihapus
+            const alerts = document.querySelectorAll('.alert-message');
             alerts.forEach(alert => {
                 alert.style.transition = 'opacity 0.5s';
                 alert.style.opacity = '0';
