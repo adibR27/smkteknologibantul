@@ -9,16 +9,21 @@ class Galeri extends Model
     protected $table = 'galeri';
 
     protected $fillable = [
-        'judul',
-        'deskripsi',
+        'caption',
         'gambar',
-        'kategori',
-        'tanggal_foto',
-        'status',
+        'tanggal_kegiatan',
+        'uploaded_by',
     ];
 
     protected $casts = [
-        'tanggal_foto' => 'date',
-        'status' => 'boolean',
+        'tanggal_kegiatan' => 'date',
     ];
+
+    /**
+     * Relasi ke Admin 
+     */
+    public function uploader()
+    {
+        return $this->belongsTo(Admin::class, 'uploaded_by');
+    }
 }

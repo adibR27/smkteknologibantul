@@ -10,6 +10,8 @@ use App\Http\Controllers\Admin\ArtikelController;
 use App\Http\Controllers\ArtikelPublicController;
 use App\Http\Controllers\Admin\DokumenController;
 use App\Http\Controllers\DokumenPublicController;
+use App\Http\Controllers\Admin\GaleriController;
+use App\Http\Controllers\GaleriPublicController;
 
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -59,11 +61,9 @@ Route::prefix('alumni')->name('alumni.')->group(function () {
     })->name('index');
 });
 
-// Galeri Routes
+// Galeri Routes - PUBLIC
 Route::prefix('galeri')->name('galeri.')->group(function () {
-    Route::get('/', function () {
-        return view('galeri.index');
-    })->name('index');
+    Route::get('/', [GaleriPublicController::class, 'index'])->name('index');
 });
 
 // Kontak Routes
@@ -129,9 +129,15 @@ Route::prefix('admin')->group(function () {
             return redirect()->route('admin.dashboard');
         })->name('admin.alumni.index');
 
-        Route::get('/galeri', function () {
-            return redirect()->route('admin.dashboard');
-        })->name('admin.galeri.index');
+        // Galeri Routes 
+        Route::resource('galeri', GaleriController::class)->except(['show'])->names([
+            'index' => 'admin.galeri.index',
+            'create' => 'admin.galeri.create',
+            'store' => 'admin.galeri.store',
+            'edit' => 'admin.galeri.edit',
+            'update' => 'admin.galeri.update',
+            'destroy' => 'admin.galeri.destroy',
+        ]);
 
         Route::resource('dokumen', DokumenController::class)->names([
             'index' => 'admin.dokumen.index',
