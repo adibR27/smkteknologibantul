@@ -49,6 +49,11 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{{ route('dokumen.index') }}" class="transition hover:text-white">
+                            <i class="fas fa-chevron-right mr-2"></i>Dokumen
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('kontak.index') }}" class="transition hover:text-white">
                             <i class="fas fa-chevron-right mr-2"></i>Kontak
                         </a>
@@ -56,7 +61,7 @@
                 </ul>
             </div>
 
-            <!-- KOLOM 3: Contact Info (DINAMIS) -->
+            <!-- KOLOM 3: Contact Info  -->
             <div>
                 <h4 class="mb-4 text-lg font-bold">Hubungi Kami</h4>
                 <ul class="space-y-3 text-sm text-blue-100">
@@ -87,7 +92,7 @@
                 </ul>
             </div>
 
-            <!-- KOLOM 4: Social Media (DINAMIS) -->
+            <!-- KOLOM 4: Social Media -->
             <div>
                 <h4 class="mb-4 text-lg font-bold">Ikuti Kami</h4>
                 <p class="mb-4 text-sm text-blue-100">

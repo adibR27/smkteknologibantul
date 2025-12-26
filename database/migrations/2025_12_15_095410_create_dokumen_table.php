@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('nama_file', 255);
             $table->string('path_file', 255);
             $table->integer('ukuran_file')->nullable();
-            $table->enum('kategori', ['kurikulum', 'panduan', 'formulir', 'lainnya'])->default('lainnya');
+            $table->enum('kategori', ['kurikulum', 'panduan', 'jadwal', 'lainnya'])->default('lainnya');
             $table->foreignId('uploaded_by')->nullable()->constrained('admin')->onDelete('set null');
             $table->timestamps();
         });

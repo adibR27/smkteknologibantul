@@ -103,7 +103,7 @@
             <p class="text-xs text-gray-500">Galeri</p>
         </div>
         <div class="rounded-lg bg-white p-4 text-center shadow-sm">
-            <i class="fas fa-file-pdf mb-2 text-2xl text-red-600"></i>
+            <i class="fa-solid fa-folder-open mb-2 text-2xl text-red-600"></i>
             <p class="text-2xl font-bold text-gray-800">{{ $stats['dokumen'] }}</p>
             <p class="text-xs text-gray-500">Dokumen</p>
         </div>
@@ -133,10 +133,10 @@
                     <div class="space-y-3">
                         @foreach ($recentArticles as $artikel)
                             <div class="flex items-start space-x-3 rounded-lg p-3 transition hover:bg-gray-50">
-                                <div class="h-16 w-16 flex-shrink-0 rounded-lg bg-gray-200">
-                                    @if ($artikel->gambar)
-                                        <img src="{{ asset('storage/' . $artikel->gambar) }}" alt="{{ $artikel->judul }}"
-                                            class="h-full w-full rounded-lg object-cover">
+                                <div class="h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg bg-gray-200">
+                                    @if ($artikel->gambar_utama)
+                                        <img src="{{ asset('storage/' . $artikel->gambar_utama) }}"
+                                            alt="{{ $artikel->judul }}" class="h-full w-full object-cover">
                                     @else
                                         <div class="flex h-full w-full items-center justify-center">
                                             <i class="fas fa-image text-gray-400"></i>
@@ -145,11 +145,25 @@
                                 </div>
                                 <div class="min-w-0 flex-1">
                                     <h4 class="truncate text-sm font-semibold text-gray-800">{{ $artikel->judul }}</h4>
-                                    <p class="mt-1 text-xs text-gray-500">{{ $artikel->created_at->format('d M Y') }}</p>
+                                    <p class="mt-1 text-xs text-gray-500">
+                                        {{ $artikel->created_at->format('d M Y') }}
+                                    </p>
                                 </div>
-                                <a href="#" class="text-blue-600 hover:text-blue-800">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </a>
+
+                                <!-- Action Buttons -->
+                                <div class="flex items-center gap-2">
+                                    <!-- Preview Button -->
+                                    <a href="{{ route('artikel.show', $artikel->slug) }}" target="_blank"
+                                        class="text-green-600 transition hover:text-green-800" title="Lihat Artikel">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+
+                                    <!-- Edit Button -->
+                                    <a href="{{ route('admin.artikel.edit', $artikel->id) }}"
+                                        class="text-blue-600 transition hover:text-blue-800" title="Edit Artikel">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </div>
                             </div>
                         @endforeach
                     </div>

@@ -115,15 +115,5 @@
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="from-primary to-secondary bg-gradient-to-r py-20 text-white">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="mb-4 text-4xl font-bold">Tertarik Bergabung dengan Kami?</h2>
-            <p class="mb-8 text-xl opacity-90">Daftarkan diri Anda sekarang dan jadilah bagian dari SMK Teknologi Bantul</p>
-            <a href="{{ route('kontak.index') }}"
-                class="text-primary inline-block transform rounded-full bg-white px-10 py-4 text-lg font-bold shadow-xl transition-all duration-300 hover:scale-105 hover:bg-gray-100">
-                Hubungi Kami
-            </a>
-        </div>
-    </section>
+
 @endsection

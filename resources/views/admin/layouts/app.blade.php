@@ -35,7 +35,8 @@
             <div class="border-b border-blue-700 p-6">
                 <div class="flex items-center space-x-3">
                     <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-white">
-                        <i class="fas fa-graduation-cap text-xl text-blue-800"></i>
+                        <img src="{{ asset('storage/' . $globalKonfigurasi->logo) }}" alt="Logo"
+                            class="h-8 w-8 object-contain">
                     </div>
                     <div>
                         <h1 class="text-lg font-bold">SMK Teknologi</h1>
@@ -112,7 +113,7 @@
 
                 <a href="{{ route('admin.dokumen.index') }}"
                     class="{{ request()->routeIs('admin.dokumen.*') ? 'bg-blue-700' : '' }} flex items-center space-x-3 rounded-lg px-4 py-3 transition hover:bg-blue-700">
-                    <i class="fas fa-file-pdf w-5"></i>
+                    <i class="fa-solid fa-folder-open w-5"></i>
                     <span>Dokumen</span>
                 </a>
 
@@ -163,14 +164,7 @@
                     </div>
 
                     <div class="flex items-center space-x-4">
-                        <!-- Notifications -->
-                        <div class="relative">
-                            <button class="relative text-gray-500 hover:text-gray-700">
-                                <i class="fas fa-bell text-xl"></i>
-                                <span
-                                    class="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">3</span>
-                            </button>
-                        </div>
+
 
                         <!-- User Menu -->
                         <div class="flex items-center space-x-3 border-l pl-4">

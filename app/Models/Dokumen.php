@@ -3,31 +3,33 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Dokumen extends Model
 {
+    use HasFactory;
+
     protected $table = 'dokumen';
 
     protected $fillable = [
         'judul',
         'deskripsi',
-        'file_path',
-        'file_name',
-        'file_type',
-        'file_size',
+        'nama_file',
+        'path_file',
+        'ukuran_file',
         'kategori',
-        'download_count',
-        'status',
+        'uploaded_by',
     ];
 
     protected $casts = [
-        'file_size' => 'integer',
-        'download_count' => 'integer',
-        'status' => 'boolean',
+        'ukuran_file' => 'integer',
     ];
 
-    public function incrementDownload()
+    /**
+     * Relasi ke Admin (uploader)
+     */
+    public function uploader()
     {
-        $this->increment('download_count');
+        return $this->belongsTo(Admin::class, 'uploaded_by');
     }
 }

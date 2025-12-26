@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\CarouselController;
 use App\Http\Controllers\Admin\KonfigurasiController;
 use App\Http\Controllers\Admin\ArtikelController;
 use App\Http\Controllers\ArtikelPublicController;
+use App\Http\Controllers\Admin\DokumenController;
+use App\Http\Controllers\DokumenPublicController;
 
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -34,6 +36,13 @@ Route::prefix('jurusan')->name('jurusan.')->group(function () {
 Route::prefix('artikel')->name('artikel.')->group(function () {
     Route::get('/', [ArtikelPublicController::class, 'index'])->name('index');
     Route::get('/{slug}', [ArtikelPublicController::class, 'show'])->name('show');
+});
+
+// Dokumen Routes 
+Route::prefix('dokumen')->name('dokumen.')->group(function () {
+    Route::get('/', [DokumenPublicController::class, 'index'])->name('index');
+    Route::get('/{id}', [DokumenPublicController::class, 'show'])->name('show');
+    Route::get('/{id}/download', [DokumenPublicController::class, 'download'])->name('download');
 });
 
 // Guru Routes
@@ -124,9 +133,18 @@ Route::prefix('admin')->group(function () {
             return redirect()->route('admin.dashboard');
         })->name('admin.galeri.index');
 
-        Route::get('/dokumen', function () {
-            return redirect()->route('admin.dashboard');
-        })->name('admin.dokumen.index');
+        Route::resource('dokumen', DokumenController::class)->names([
+            'index' => 'admin.dokumen.index',
+            'create' => 'admin.dokumen.create',
+            'store' => 'admin.dokumen.store',
+            'edit' => 'admin.dokumen.edit',
+            'update' => 'admin.dokumen.update',
+            'destroy' => 'admin.dokumen.destroy',
+        ]);
+
+        // Route download dokumen
+        Route::get('/dokumen/{id}/download', [DokumenController::class, 'download'])
+            ->name('admin.dokumen.download');
 
         Route::get('/visi-misi', function () {
             return redirect()->route('admin.dashboard');

@@ -117,7 +117,14 @@
                         Alumni
                     </a>
                 </li>
-
+                <!-- Menu Dokumen -->
+                <li>
+                    <a href="{{ route('dokumen.index') }}"
+                        class="{{ request()->routeIs('dokumen.*') ? 'text-blue-200' : '' }} font-medium transition hover:text-blue-200">
+                        <i class="fas fa-file-download mr-1"></i>
+                        Dokumen
+                    </a>
+                </li>
                 <!-- Menu Kontak -->
                 <li>
                     <a href="{{ route('kontak.index') }}"
@@ -195,6 +202,12 @@
                 <a href="{{ route('alumni.index') }}"
                     class="block rounded px-3 py-2 font-medium text-white transition hover:bg-blue-700">
                     <i class="fas fa-user-graduate mr-2"></i>Alumni
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('dokumen.index') }}"
+                    class="block rounded px-3 py-2 font-medium text-white transition hover:bg-blue-700">
+                    <i class="fas fa-file-download mr-2"></i>Dokumen
                 </a>
             </li>
             <li>
