@@ -33,11 +33,7 @@
                             <i class="fas fa-chevron-right mr-2"></i>Visi & Misi
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ route('jurusan.index') }}" class="transition hover:text-white">
-                            <i class="fas fa-chevron-right mr-2"></i>Jurusan
-                        </a>
-                    </li>
+
                     <li>
                         <a href="{{ route('artikel.index') }}" class="transition hover:text-white">
                             <i class="fas fa-chevron-right mr-2"></i>Artikel

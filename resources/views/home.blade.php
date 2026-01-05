@@ -32,7 +32,7 @@
 
                         <div class="p-6">
                             <h5 class="mb-3 text-xl font-bold text-gray-800">{{ $item->nama_jurusan }}</h5>
-                            <p class="mb-4 text-gray-600">{{ Str::limit($item->deskripsi, 100) }}</p>
+                            <p class="mb-4 text-gray-600">{{ $item->deskripsi_singkat }}</p>
                             <a href="{{ route('jurusan.show', $item->id) }}"
                                 class="bg-primary hover:bg-secondary inline-block rounded-lg px-6 py-2 font-semibold text-white transition-colors duration-300">
                                 Lihat Detail
@@ -49,12 +49,6 @@
                 @endforelse
             </div>
 
-            <div class="mt-12 text-center">
-                <a href="{{ route('jurusan.index') }}"
-                    class="bg-primary hover:bg-secondary inline-block transform rounded-full px-8 py-4 font-bold text-white transition-all duration-300 hover:scale-105">
-                    Lihat Semua Jurusan
-                </a>
-            </div>
         </div>
     </section>
 
@@ -114,6 +108,5 @@
             </div>
         </div>
     </section>
-
 
 @endsection

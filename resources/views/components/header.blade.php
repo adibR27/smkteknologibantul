@@ -1,9 +1,8 @@
 <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-800 to-blue-900 shadow-lg">
     <nav class="mx-auto max-w-7xl px-4 py-4">
-        <!-- Flex container untuk header (logo + menu) -->
         <div class="flex items-center justify-between">
 
-            <!-- LOGO / BRAND (Sebelah Kiri) - DINAMIS -->
+            <!-- LOGO  -->
             <div class="flex items-center gap-3">
                 <a href="{{ route('home') }}" class="flex items-center gap-3 transition-transform hover:scale-105">
                     @if ($globalKonfigurasi && $globalKonfigurasi->logo)
@@ -28,7 +27,7 @@
                 <span class="h-0.5 w-6 bg-white transition-all duration-300"></span>
             </button>
 
-            <!-- NAVIGATION MENU (Sebelah Kanan) -->
+            <!-- NAVIGATION MENU -->
             <ul id="nav-menu" class="hidden gap-6 text-white md:flex">
                 <!-- Menu Beranda -->
                 <li>
@@ -39,14 +38,14 @@
                     </a>
                 </li>
 
-                <!-- Menu Profil (Dropdown) - FIX Z-INDEX -->
+                <!-- Menu Profil  -->
                 <li class="group relative">
                     <button class="font-medium transition hover:text-blue-200">
                         <i class="fas fa-info-circle mr-1"></i>
                         Profil
                         <i class="fas fa-chevron-down ml-1 text-xs transition-transform group-hover:rotate-180"></i>
                     </button>
-                    <!-- Dropdown Menu - Z-INDEX TINGGI -->
+                    <!-- Dropdown Menu  -->
                     <ul class="invisible absolute left-0 mt-2 w-56 rounded-lg border border-blue-700 bg-white opacity-0 shadow-xl transition-all duration-300 group-hover:visible group-hover:opacity-100"
                         style="z-index: 9999;">
                         <li>
@@ -56,13 +55,7 @@
                                 Visi & Misi
                             </a>
                         </li>
-                        <li>
-                            <a href="{{ route('sambutan') }}"
-                                class="block border-b border-gray-100 px-4 py-3 text-gray-700 transition hover:bg-blue-50 hover:text-blue-800">
-                                <i class="fas fa-user-tie mr-2 text-blue-600"></i>
-                                Sambutan Kepala Sekolah
-                            </a>
-                        </li>
+
                         <li>
                             <a href="#"
                                 class="block px-4 py-3 text-gray-700 transition hover:bg-blue-50 hover:text-blue-800">
@@ -71,15 +64,6 @@
                             </a>
                         </li>
                     </ul>
-                </li>
-
-                <!-- Menu Jurusan -->
-                <li>
-                    <a href="{{ route('jurusan.index') }}"
-                        class="{{ request()->routeIs('jurusan.*') ? 'text-blue-200' : '' }} font-medium transition hover:text-blue-200">
-                        <i class="fas fa-book mr-1"></i>
-                        Jurusan
-                    </a>
                 </li>
 
                 <!-- Menu Guru -->
@@ -136,7 +120,7 @@
             </ul>
         </div>
 
-        <!-- MOBILE MENU (Muncul saat hamburger diklik) -->
+        <!-- MOBILE MENU -->
         <ul id="mobile-nav" class="mt-4 hidden flex-col gap-2 rounded-lg bg-blue-800 p-4 md:hidden">
             <li>
                 <a href="{{ route('home') }}"
@@ -160,12 +144,6 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('sambutan') }}"
-                            class="block rounded px-3 py-2 text-sm text-blue-100 transition hover:bg-blue-700 hover:text-white">
-                            <i class="fas fa-user-tie mr-2"></i>Sambutan Kepala Sekolah
-                        </a>
-                    </li>
-                    <li>
                         <a href="#"
                             class="block rounded px-3 py-2 text-sm text-blue-100 transition hover:bg-blue-700 hover:text-white">
                             <i class="fas fa-sitemap mr-2"></i>Struktur Organisasi
@@ -174,12 +152,6 @@
                 </ul>
             </li>
 
-            <li>
-                <a href="{{ route('jurusan.index') }}"
-                    class="block rounded px-3 py-2 font-medium text-white transition hover:bg-blue-700">
-                    <i class="fas fa-book mr-2"></i>Jurusan
-                </a>
-            </li>
             <li>
                 <a href="{{ route('guru.index') }}"
                     class="block rounded px-3 py-2 font-medium text-white transition hover:bg-blue-700">

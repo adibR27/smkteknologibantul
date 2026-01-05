@@ -177,11 +177,7 @@
                         </div>
                     </div>
 
-                    <!-- Back to List Button -->
-                    <a href="{{ route('artikel.index') }}"
-                        class="block w-full rounded-lg bg-blue-600 py-3 text-center font-semibold text-white transition hover:bg-blue-700">
-                        <i class="fas fa-arrow-left mr-2"></i>Kembali ke Daftar Artikel
-                    </a>
+
                 </aside>
             </div>
         </div>

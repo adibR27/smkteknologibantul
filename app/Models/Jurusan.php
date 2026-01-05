@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 
 class Jurusan extends Model
 {
@@ -22,4 +23,14 @@ class Jurusan extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+    public function getDeskripsiSingkatAttribute()
+    {
+        $text = preg_replace('/<[^>]*>/', '', $this->deskripsi);
+
+        $text = html_entity_decode($text, ENT_QUOTES, 'UTF-8');
+
+        $text = preg_replace('/\s+/', ' ', $text);
+
+        return Str::limit(trim($text), 120);
+    }
 }

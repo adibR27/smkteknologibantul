@@ -12,7 +12,8 @@ use App\Http\Controllers\Admin\DokumenController;
 use App\Http\Controllers\DokumenPublicController;
 use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\GaleriPublicController;
-
+use App\Http\Controllers\Admin\JurusanController;
+use App\Http\Controllers\JurusanPublicController;
 
 Route::get('/login', function () {
     return redirect()->route('admin.login');
@@ -31,12 +32,8 @@ Route::get('/sambutan', function () {
 
 // Jurusan Routes
 Route::prefix('jurusan')->name('jurusan.')->group(function () {
-    Route::get('/', function () {
-        return view('jurusan.index');
-    })->name('index');
-    Route::get('/{id}', function ($id) {
-        return view('jurusan.show', ['id' => $id]);
-    })->name('show');
+    Route::get('/', [JurusanPublicController::class, 'index'])->name('index');
+    Route::get('/{id}', [JurusanPublicController::class, 'show'])->name('show');
 });
 
 // Artikel Routes
@@ -66,7 +63,7 @@ Route::prefix('alumni')->name('alumni.')->group(function () {
     })->name('index');
 });
 
-// Galeri Routes - PUBLIC
+// Galeri Routes 
 Route::prefix('galeri')->name('galeri.')->group(function () {
     Route::get('/', [GaleriPublicController::class, 'index'])->name('index');
 });
@@ -108,13 +105,15 @@ Route::prefix('admin')->group(function () {
         // Upload Image dari TinyMCE
         Route::post('/upload-image', [ArtikelController::class, 'uploadImage'])
             ->name('admin.upload.image');
-
-        Route::get('/jurusan', function () {
-            return redirect()->route('admin.dashboard');
-        })->name('admin.jurusan.index');
-        Route::get('/jurusan/create', function () {
-            return redirect()->route('admin.dashboard');
-        })->name('admin.jurusan.create');
+        // Jurusan Routes
+        Route::resource('jurusan', JurusanController::class)->names([
+            'index' => 'admin.jurusan.index',
+            'create' => 'admin.jurusan.create',
+            'store' => 'admin.jurusan.store',
+            'edit' => 'admin.jurusan.edit',
+            'update' => 'admin.jurusan.update',
+            'destroy' => 'admin.jurusan.destroy',
+        ]);
 
         Route::get('/prestasi', function () {
             return redirect()->route('admin.dashboard');
