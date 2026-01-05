@@ -13,6 +13,11 @@ use App\Http\Controllers\DokumenPublicController;
 use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\GaleriPublicController;
 
+
+Route::get('/login', function () {
+    return redirect()->route('admin.login');
+})->name('login');
+
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/visi-misi', function () {

@@ -13,12 +13,13 @@ class Authenticate extends Middleware
     protected function redirectTo(Request $request): ?string
     {
         if (! $request->expectsJson()) {
-            // Jika mencoba akses route admin, redirect ke admin login
-            if ($request->is('admin') || $request->is('admin/*')) {
+            // Cek apakah request dari admin area
+            // Gunakan str_starts_with() karena lebih reliable
+            if (str_starts_with($request->path(), 'admin')) {
                 return route('admin.login');
             }
 
-            // Default redirect untuk web
+            // Default untuk web
             return route('home');
         }
 

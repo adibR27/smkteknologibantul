@@ -3,7 +3,7 @@
     <div class="mx-auto max-w-7xl px-4 py-12">
         <div class="grid grid-cols-1 gap-8 md:grid-cols-4">
 
-            <!-- KOLOM 1: About Sekolah (DINAMIS) -->
+            <!-- KOLOM 1: About Sekolah -->
             <div>
                 <h3 class="mb-4 flex items-center gap-2 text-xl font-bold">
                     @if ($globalKonfigurasi && $globalKonfigurasi->logo)
