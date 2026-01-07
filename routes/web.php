@@ -14,6 +14,8 @@ use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\GaleriPublicController;
 use App\Http\Controllers\Admin\JurusanController;
 use App\Http\Controllers\JurusanPublicController;
+use App\Http\Controllers\Admin\GuruController;
+use App\Http\Controllers\GuruPublicController;
 
 Route::get('/login', function () {
     return redirect()->route('admin.login');
@@ -51,9 +53,7 @@ Route::prefix('dokumen')->name('dokumen.')->group(function () {
 
 // Guru Routes
 Route::prefix('guru')->name('guru.')->group(function () {
-    Route::get('/', function () {
-        return view('guru.index');
-    })->name('index');
+    Route::get('/', [GuruPublicController::class, 'index'])->name('index');
 });
 
 // Alumni Routes
@@ -122,12 +122,14 @@ Route::prefix('admin')->group(function () {
             return redirect()->route('admin.dashboard');
         })->name('admin.prestasi.create');
 
-        Route::get('/guru', function () {
-            return redirect()->route('admin.dashboard');
-        })->name('admin.guru.index');
-        Route::get('/guru/create', function () {
-            return redirect()->route('admin.dashboard');
-        })->name('admin.guru.create');
+        Route::resource('guru', GuruController::class)->names([
+            'index' => 'admin.guru.index',
+            'create' => 'admin.guru.create',
+            'store' => 'admin.guru.store',
+            'edit' => 'admin.guru.edit',
+            'update' => 'admin.guru.update',
+            'destroy' => 'admin.guru.destroy',
+        ]);
 
         Route::get('/alumni', function () {
             return redirect()->route('admin.dashboard');

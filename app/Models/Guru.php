@@ -9,18 +9,18 @@ class Guru extends Model
     protected $table = 'guru';
 
     protected $fillable = [
-        'nip',
         'nama_lengkap',
         'foto',
-        'mata_pelajaran',
-        'jabatan',
-        'pendidikan',
         'email',
-        'telepon',
-        'status',
+        'jurusan_id',
+        'jabatan',
+        'mata_pelajaran',
+        'pendidikan_terakhir',
     ];
 
-    protected $casts = [
-        'status' => 'boolean',
-    ];
+    // Relasi ke Jurusan
+    public function jurusan()
+    {
+        return $this->belongsTo(Jurusan::class, 'jurusan_id');
+    }
 }
