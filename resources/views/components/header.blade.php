@@ -57,7 +57,7 @@
                         </li>
 
                         <li>
-                            <a href="#"
+                            <a href="{{ route('struktur-organisasi') }}"
                                 class="block px-4 py-3 text-gray-700 transition hover:bg-blue-50 hover:text-blue-800">
                                 <i class="fas fa-sitemap mr-2 text-blue-600"></i>
                                 Struktur Organisasi
@@ -144,7 +144,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="{{ route('struktur-organisasi') }}"
                             class="block rounded px-3 py-2 text-sm text-blue-100 transition hover:bg-blue-700 hover:text-white">
                             <i class="fas fa-sitemap mr-2"></i>Struktur Organisasi
                         </a>

@@ -16,6 +16,8 @@ use App\Http\Controllers\Admin\JurusanController;
 use App\Http\Controllers\JurusanPublicController;
 use App\Http\Controllers\Admin\GuruController;
 use App\Http\Controllers\GuruPublicController;
+use App\Http\Controllers\StrukturOrganisasiPublicController;
+use App\Http\Controllers\Admin\StrukturOrganisasiController;
 
 Route::get('/login', function () {
     return redirect()->route('admin.login');
@@ -30,7 +32,9 @@ Route::get('/sambutan', function () {
     return view('profil.sambutan');
 })->name('sambutan');
 
-
+// Struktur Organisasi Routes
+Route::get('/struktur-organisasi', [StrukturOrganisasiPublicController::class, 'index'])
+    ->name('struktur-organisasi');
 
 // Jurusan Routes
 Route::prefix('jurusan')->name('jurusan.')->group(function () {
@@ -191,6 +195,16 @@ Route::prefix('admin')->group(function () {
                 'carbon_now' => \Carbon\Carbon::now(),
                 'formatted' => now()->format('Y-m-d H:i:s T'),
             ];
+        });
+
+        // Struktur Organisasi Routes
+        Route::controller(StrukturOrganisasiController::class)->prefix('struktur-organisasi')->group(function () {
+            Route::get('/', 'index')->name('admin.struktur-organisasi.index');
+            Route::get('/create', 'create')->name('admin.struktur-organisasi.create');
+            Route::post('/', 'store')->name('admin.struktur-organisasi.store');
+            Route::get('/edit', 'edit')->name('admin.struktur-organisasi.edit'); 
+            Route::put('/', 'update')->name('admin.struktur-organisasi.update');  
+            Route::delete('/', 'destroy')->name('admin.struktur-organisasi.destroy');  
         });
     });
 });

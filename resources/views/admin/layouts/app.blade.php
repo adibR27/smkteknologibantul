@@ -8,13 +8,13 @@
     <title>@yield('title', 'Dashboard') - {{ $globalKonfigurasi->nama_sekolah ?? 'Admin SMK Teknologi Bantul' }}</title>
 
     <!-- Favicon Dinamis dari Database -->
-    @if($globalKonfigurasi && $globalKonfigurasi->favicon)
+    @if ($globalKonfigurasi && $globalKonfigurasi->favicon)
         <link rel="icon" type="image/x-icon" href="{{ asset('storage/' . $globalKonfigurasi->favicon) }}">
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('storage/' . $globalKonfigurasi->favicon) }}">
         <link rel="apple-touch-icon" href="{{ asset('storage/' . $globalKonfigurasi->favicon) }}">
     @else
         <!-- Fallback ke logo jika favicon tidak ada -->
-        @if($globalKonfigurasi && $globalKonfigurasi->logo)
+        @if ($globalKonfigurasi && $globalKonfigurasi->logo)
             <link rel="icon" type="image/png" href="{{ asset('storage/' . $globalKonfigurasi->logo) }}">
             <link rel="shortcut icon" type="image/png" href="{{ asset('storage/' . $globalKonfigurasi->logo) }}">
             <link rel="apple-touch-icon" href="{{ asset('storage/' . $globalKonfigurasi->logo) }}">
@@ -127,7 +127,11 @@
                     <i class="fas fa-bullseye w-5"></i>
                     <span>Visi & Misi</span>
                 </a>
-
+                <a href="{{ route('admin.struktur-organisasi.index') }}"
+                    class="{{ request()->routeIs('admin.struktur-organisasi.*') ? 'bg-blue-700' : '' }} flex items-center space-x-3 rounded-lg px-4 py-3 transition hover:bg-blue-700">
+                    <i class="fas fa-sitemap w-5"></i>
+                    <span>Struktur Organisasi</span>
+                </a>
                 <a href="{{ route('admin.kepala-sekolah.index') }}"
                     class="{{ request()->routeIs('admin.kepala-sekolah.*') ? 'bg-blue-700' : '' }} flex items-center space-x-3 rounded-lg px-4 py-3 transition hover:bg-blue-700">
                     <i class="fas fa-user-tie w-5"></i>
@@ -164,7 +168,6 @@
                     </div>
 
                     <div class="flex items-center space-x-4">
-
 
                         <!-- User Menu -->
                         <div class="flex items-center space-x-3 border-l pl-4">
