@@ -245,20 +245,7 @@
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="bg-gradient-to-r from-blue-600 to-blue-800 py-16 text-white">
-        <div class="mx-auto max-w-4xl px-4 text-center">
-            <h2 class="mb-4 text-3xl font-bold">Tertarik Bergabung dengan Kami?</h2>
-            <p class="mb-8 text-lg text-blue-100">
-                Kami selalu membuka peluang bagi tenaga pendidik profesional untuk bergabung
-            </p>
-            <a href="{{ route('kontak.index') }}"
-                class="inline-flex items-center gap-2 rounded-full bg-white px-8 py-3 font-semibold text-blue-600 transition hover:bg-blue-50">
-                <i class="fas fa-envelope"></i>
-                Hubungi Kami
-            </a>
-        </div>
-    </section>
+ 
 @endsection
 
 @push('scripts')

@@ -54,7 +54,7 @@
                     <input type="text" name="fasilitas_jurusan" id="fasilitas_jurusan"
                         value="{{ old('fasilitas_jurusan') }}"
                         class="@error('fasilitas_jurusan') border-red-500 @enderror w-full rounded-lg border border-gray-300 px-4 py-2.5 transition focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
-                        placeholder="Contoh: Lab Komputer, Ruang Server, dll">
+                        placeholder="Setiap Fasilitas Pisahkan Dengan Tanda Koma Contoh: Lab Komputer, Ruang Server, dll">
                     @error('fasilitas_jurusan')
                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                     @enderror

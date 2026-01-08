@@ -16,8 +16,10 @@ use App\Http\Controllers\Admin\JurusanController;
 use App\Http\Controllers\JurusanPublicController;
 use App\Http\Controllers\Admin\GuruController;
 use App\Http\Controllers\GuruPublicController;
-use App\Http\Controllers\StrukturOrganisasiPublicController;
 use App\Http\Controllers\Admin\StrukturOrganisasiController;
+use App\Http\Controllers\StrukturOrganisasiPublicController;
+use App\Http\Controllers\Admin\VisiMisiController;
+use App\Http\Controllers\VisiMisiPublicController;
 
 Route::get('/login', function () {
     return redirect()->route('admin.login');
@@ -25,12 +27,9 @@ Route::get('/login', function () {
 
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/visi-misi', function () {
-    return view('profil.visi-misi');
-})->name('visi-misi');
-Route::get('/sambutan', function () {
-    return view('profil.sambutan');
-})->name('sambutan');
+
+// Visi Misi Routes
+Route::get('/visi-misi', [VisiMisiPublicController::class, 'index'])->name('visi-misi');
 
 // Struktur Organisasi Routes
 Route::get('/struktur-organisasi', [StrukturOrganisasiPublicController::class, 'index'])
@@ -162,9 +161,12 @@ Route::prefix('admin')->group(function () {
         Route::get('/dokumen/{id}/download', [DokumenController::class, 'download'])
             ->name('admin.dokumen.download');
 
-        Route::get('/visi-misi', function () {
-            return redirect()->route('admin.dashboard');
-        })->name('admin.visi-misi.index');
+        // Visi Misi Routes
+        Route::controller(VisiMisiController::class)->prefix('visi-misi')->group(function () {
+            Route::get('/', 'index')->name('admin.visi-misi.index');
+            Route::get('/edit', 'edit')->name('admin.visi-misi.edit');
+            Route::put('/', 'update')->name('admin.visi-misi.update');
+        });
 
         Route::get('/kepala-sekolah', function () {
             return redirect()->route('admin.dashboard');
@@ -202,9 +204,9 @@ Route::prefix('admin')->group(function () {
             Route::get('/', 'index')->name('admin.struktur-organisasi.index');
             Route::get('/create', 'create')->name('admin.struktur-organisasi.create');
             Route::post('/', 'store')->name('admin.struktur-organisasi.store');
-            Route::get('/edit', 'edit')->name('admin.struktur-organisasi.edit'); 
-            Route::put('/', 'update')->name('admin.struktur-organisasi.update');  
-            Route::delete('/', 'destroy')->name('admin.struktur-organisasi.destroy');  
+            Route::get('/edit', 'edit')->name('admin.struktur-organisasi.edit');
+            Route::put('/', 'update')->name('admin.struktur-organisasi.update');
+            Route::delete('/', 'destroy')->name('admin.struktur-organisasi.destroy');
         });
     });
 });
