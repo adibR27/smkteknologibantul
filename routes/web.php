@@ -20,6 +20,8 @@ use App\Http\Controllers\Admin\StrukturOrganisasiController;
 use App\Http\Controllers\StrukturOrganisasiPublicController;
 use App\Http\Controllers\Admin\VisiMisiController;
 use App\Http\Controllers\VisiMisiPublicController;
+use App\Http\Controllers\Admin\AlumniController;
+use App\Http\Controllers\AlumniPublicController;
 
 Route::get('/login', function () {
     return redirect()->route('admin.login');
@@ -61,9 +63,8 @@ Route::prefix('guru')->name('guru.')->group(function () {
 
 // Alumni Routes
 Route::prefix('alumni')->name('alumni.')->group(function () {
-    Route::get('/', function () {
-        return view('alumni.index');
-    })->name('index');
+    Route::get('/', [AlumniPublicController::class, 'index'])->name('index');
+    Route::get('/{id}', [AlumniPublicController::class, 'show'])->name('show');
 });
 
 // Galeri Routes 
@@ -134,9 +135,15 @@ Route::prefix('admin')->group(function () {
             'destroy' => 'admin.guru.destroy',
         ]);
 
-        Route::get('/alumni', function () {
-            return redirect()->route('admin.dashboard');
-        })->name('admin.alumni.index');
+        // Alumni Routes
+        Route::resource('alumni', AlumniController::class)->names([
+            'index' => 'admin.alumni.index',
+            'create' => 'admin.alumni.create',
+            'store' => 'admin.alumni.store',
+            'edit' => 'admin.alumni.edit',
+            'update' => 'admin.alumni.update',
+            'destroy' => 'admin.alumni.destroy',
+        ]);
 
         // Galeri Routes 
         Route::resource('galeri', GaleriController::class)->except(['show'])->names([

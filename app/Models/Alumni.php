@@ -11,21 +11,19 @@ class Alumni extends Model
     protected $fillable = [
         'nama_lengkap',
         'foto',
-        'tahun_lulus',
         'jurusan_id',
-        'pekerjaan',
-        'perusahaan',
-        'testimoni',
-        'status',
+        'tahun_lulus',
+        'pekerjaan_sekarang',
+        'pesan_alumni',
     ];
 
     protected $casts = [
         'tahun_lulus' => 'integer',
-        'status' => 'boolean',
     ];
 
+    // Relasi ke Jurusan
     public function jurusan()
     {
-        return $this->belongsTo(Jurusan::class);
+        return $this->belongsTo(Jurusan::class, 'jurusan_id');
     }
 }
