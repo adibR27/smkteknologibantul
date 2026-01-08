@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('alumni', function (Blueprint $table) {
             $table->id();
-            $table->string('nis', 50)->nullable();
             $table->string('nama_lengkap', 100);
             $table->string('foto', 255)->nullable();
             $table->foreignId('jurusan_id')->nullable()->constrained('jurusan')->onDelete('set null');
