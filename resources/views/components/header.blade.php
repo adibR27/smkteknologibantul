@@ -111,10 +111,10 @@
                 </li>
                 <!-- Menu Kontak -->
                 <li>
-                    <a href="{{ route('kontak.index') }}"
-                        class="{{ request()->routeIs('kontak.*') ? 'text-blue-200' : '' }} font-medium transition hover:text-blue-200">
-                        <i class="fas fa-envelope mr-1"></i>
-                        Kontak
+                    <a href="{{ route('pengaduan.index') }}"
+                        class="{{ request()->routeIs('pengaduan.*') ? 'text-blue-200' : '' }} font-medium transition hover:text-blue-200">
+                        <i class="fas fa-comments mr-1"></i>
+                        Pengaduan
                     </a>
                 </li>
             </ul>
@@ -183,9 +183,9 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('kontak.index') }}"
+                <a href="{{ route('pengaduan.index') }}"
                     class="block rounded px-3 py-2 font-medium text-white transition hover:bg-blue-700">
-                    <i class="fas fa-envelope mr-2"></i>Kontak
+                    <i class="fas fa-comments mr-2"></i>Pengaduan
                 </a>
             </li>
         </ul>

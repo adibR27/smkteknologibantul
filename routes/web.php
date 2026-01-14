@@ -72,11 +72,10 @@ Route::prefix('galeri')->name('galeri.')->group(function () {
     Route::get('/', [GaleriPublicController::class, 'index'])->name('index');
 });
 
-// Kontak Routes
-Route::prefix('kontak')->name('kontak.')->group(function () {
-    Route::get('/', function () {
-        return view('kontak.index');
-    })->name('index');
+// Pengaduan Routes
+Route::prefix('pengaduan')->name('pengaduan.')->group(function () {
+    Route::get('/', [App\Http\Controllers\PengaduanPublicController::class, 'index'])->name('index');
+    Route::post('/', [App\Http\Controllers\PengaduanPublicController::class, 'store'])->name('store');
 });
 
 Route::prefix('admin')->group(function () {
@@ -154,7 +153,7 @@ Route::prefix('admin')->group(function () {
             'update' => 'admin.galeri.update',
             'destroy' => 'admin.galeri.destroy',
         ]);
-
+        // Dokumen Routes
         Route::resource('dokumen', DokumenController::class)->names([
             'index' => 'admin.dokumen.index',
             'create' => 'admin.dokumen.create',
@@ -190,9 +189,13 @@ Route::prefix('admin')->group(function () {
         Route::put('/konfigurasi/media-sosial/{id}', [KonfigurasiController::class, 'updateMediaSosial'])->name('admin.konfigurasi.media-sosial.update');
         Route::delete('/konfigurasi/media-sosial/{id}', [KonfigurasiController::class, 'deleteMediaSosial'])->name('admin.konfigurasi.media-sosial.delete');
 
-        Route::get('/pengaduan', function () {
-            return redirect()->route('admin.dashboard');
-        })->name('admin.pengaduan.index');
+        Route::resource('pengaduan', App\Http\Controllers\Admin\PengaduanController::class)
+            ->only(['index', 'show', 'destroy'])
+            ->names([
+                'index' => 'admin.pengaduan.index',
+                'show' => 'admin.pengaduan.show',
+                'destroy' => 'admin.pengaduan.destroy',
+            ]);
 
         Route::post('/logout', [AuthController::class, 'logout'])->name('admin.logout');
 

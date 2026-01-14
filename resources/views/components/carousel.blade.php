@@ -39,7 +39,7 @@
                                                         class="fas fa-graduation-cap mr-2 group-hover:animate-bounce"></i>
                                                     Lihat Jurusan
                                                 </a>
-                                                <a href="{{ route('kontak.index') }}"
+                                                <a href="{{ route('pengaduan.index') }}"
                                                     class="group inline-flex transform items-center justify-center rounded-full border-2 border-white bg-white/20 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/30 hover:shadow-2xl sm:px-8 sm:py-4 sm:text-base">
                                                     <i class="fas fa-envelope mr-2 group-hover:animate-pulse"></i>
                                                     Hubungi Kami

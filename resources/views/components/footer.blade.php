@@ -50,8 +50,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('kontak.index') }}" class="transition hover:text-white">
-                            <i class="fas fa-chevron-right mr-2"></i>Kontak
+                        <a href="{{ route('pengaduan.index') }}" class="transition hover:text-white">
+                            <i class="fas fa-chevron-right mr-2"></i>Pengaduan
                         </a>
                     </li>
                 </ul>
