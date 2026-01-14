@@ -143,7 +143,11 @@
                     <i class="fas fa-cog w-5"></i>
                     <span>Konfigurasi</span>
                 </a>
-
+                <a href="{{ route('admin.admin-management.index') }}"
+                    class="{{ request()->routeIs('admin.admin-management.*') ? 'bg-blue-700' : '' }} flex items-center space-x-3 rounded-lg px-4 py-3 transition hover:bg-blue-700">
+                    <i class="fas fa-users-cog w-5"></i>
+                    <span>Manajemen Admin</span>
+                </a>
                 <a href="{{ route('admin.pengaduan.index') }}"
                     class="{{ request()->routeIs('admin.pengaduan.*') ? 'bg-blue-700' : '' }} flex items-center space-x-3 rounded-lg px-4 py-3 transition hover:bg-blue-700">
                     <i class="fas fa-envelope w-5"></i>
@@ -183,7 +187,7 @@
                                 </button>
                                 <div id="userMenuDropdown"
                                     class="absolute right-0 z-50 mt-2 hidden w-48 rounded-lg border border-gray-200 bg-white py-2 shadow-xl">
-                                    <a href="#"
+                                    <a href="{{ route('admin.profile.index') }}"
                                         class="block px-4 py-2 text-sm text-gray-700 transition hover:bg-gray-100">
                                         <i class="fas fa-user mr-2"></i> Profile
                                     </a>

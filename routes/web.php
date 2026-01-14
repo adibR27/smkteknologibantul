@@ -96,6 +96,28 @@ Route::prefix('admin')->group(function () {
     Route::middleware('auth:admin')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
+        // Profile Routes
+        Route::controller(App\Http\Controllers\Admin\ProfileController::class)->prefix('profile')->group(function () {
+            Route::get('/', 'index')->name('admin.profile.index');
+            Route::put('/update', 'updateProfile')->name('admin.profile.update');
+            Route::put('/update-password', 'updatePassword')->name('admin.profile.update-password');
+        });
+        
+        // Admin Management Routes
+        Route::controller(App\Http\Controllers\Admin\AdminManagementController::class)
+            ->prefix('admin-management')
+            ->group(function () {
+                Route::get('/', 'index')->name('admin.admin-management.index');
+                Route::get('/create', 'create')->name('admin.admin-management.create');
+                Route::post('/', 'store')->name('admin.admin-management.store');
+                Route::get('/{id}', 'show')->name('admin.admin-management.show');
+                Route::get('/{id}/edit', 'edit')->name('admin.admin-management.edit');
+                Route::put('/{id}', 'update')->name('admin.admin-management.update');
+                Route::delete('/{id}', 'destroy')->name('admin.admin-management.destroy');
+                Route::put('/{id}/reset-password', 'resetPassword')->name('admin.admin-management.reset-password');
+            });
+
+        // Carousel Routes
         Route::resource('carousel', CarouselController::class)->names([
             'index' => 'admin.carousel.index',
             'create' => 'admin.carousel.create',
@@ -104,6 +126,8 @@ Route::prefix('admin')->group(function () {
             'update' => 'admin.carousel.update',
             'destroy' => 'admin.carousel.destroy',
         ]);
+
+        // Artikel Routes
         Route::resource('artikel', ArtikelController::class)->names([
             'index' => 'admin.artikel.index',
             'create' => 'admin.artikel.create',
