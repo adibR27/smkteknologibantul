@@ -12,9 +12,9 @@ class HomeController extends Controller
     public function index()
     {
         $carousel = Carousel::all();
-        $kepalaSekolah = KepalaSekolah::all();
+        $kepalaSekolah = KepalaSekolah::first();
         $jurusan = Jurusan::all();
-        
+
         // Hanya tampilkan artikel yang sudah dipublish
         $artikel = Artikel::with('penulis')
             ->where('tanggal_publish', '<=', now())

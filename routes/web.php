@@ -24,7 +24,7 @@ use App\Http\Controllers\Admin\AlumniController;
 use App\Http\Controllers\AlumniPublicController;
 use App\Http\Controllers\Admin\PrestasiController;
 use App\Http\Controllers\PrestasiPublicController;
-
+use App\Http\Controllers\Admin\KepalaSekolahController;
 
 Route::get('/login', function () {
     return redirect()->route('admin.login');
@@ -185,9 +185,16 @@ Route::prefix('admin')->group(function () {
             Route::put('/', 'update')->name('admin.visi-misi.update');
         });
 
-        Route::get('/kepala-sekolah', function () {
-            return redirect()->route('admin.dashboard');
-        })->name('admin.kepala-sekolah.index');
+        // Kepala Sekolah Routes
+        Route::controller(KepalaSekolahController::class)->prefix('kepala-sekolah')->group(function () {
+            Route::get('/', 'index')->name('admin.kepala-sekolah.index');
+            Route::get('/create', 'create')->name('admin.kepala-sekolah.create');
+            Route::post('/', 'store')->name('admin.kepala-sekolah.store');
+            Route::get('/edit', 'edit')->name('admin.kepala-sekolah.edit');
+            Route::put('/', 'update')->name('admin.kepala-sekolah.update');
+            Route::delete('/', 'destroy')->name('admin.kepala-sekolah.destroy');
+            Route::delete('/foto', 'deleteFoto')->name('admin.kepala-sekolah.delete-foto');
+        });
 
         // Konfigurasi Routes
         Route::get('/konfigurasi', [KonfigurasiController::class, 'index'])->name('admin.konfigurasi.index');
