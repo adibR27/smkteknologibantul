@@ -33,7 +33,11 @@
                             <i class="fas fa-chevron-right mr-2"></i>Visi & Misi
                         </a>
                     </li>
-
+                    <li>
+                        <a href="{{ route('prestasi.index') }}" class="transition hover:text-white">
+                            <i class="fas fa-chevron-right mr-2"></i>Prestasi
+                        </a>
+                    </li>
                     <li>
                         <a href="{{ route('artikel.index') }}" class="transition hover:text-white">
                             <i class="fas fa-chevron-right mr-2"></i>Artikel

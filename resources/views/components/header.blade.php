@@ -75,6 +75,15 @@
                     </a>
                 </li>
 
+                <!-- Menu Prestasi  -->
+                <li>
+                    <a href="{{ route('prestasi.index') }}"
+                        class="{{ request()->routeIs('prestasi.*') ? 'text-blue-200' : '' }} font-medium transition hover:text-blue-200">
+                        <i class="fas fa-trophy mr-1"></i>
+                        Prestasi
+                    </a>
+                </li>
+
                 <!-- Menu Artikel -->
                 <li>
                     <a href="{{ route('artikel.index') }}"
@@ -156,6 +165,13 @@
                 <a href="{{ route('guru.index') }}"
                     class="block rounded px-3 py-2 font-medium text-white transition hover:bg-blue-700">
                     <i class="fas fa-chalkboard-teacher mr-2"></i>Guru
+                </a>
+            </li>
+            <!-- Menu Prestasi Mobile  -->
+            <li>
+                <a href="{{ route('prestasi.index') }}"
+                    class="block rounded px-3 py-2 font-medium text-white transition hover:bg-blue-700">
+                    <i class="fas fa-trophy mr-2"></i>Prestasi
                 </a>
             </li>
             <li>

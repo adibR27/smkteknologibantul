@@ -22,6 +22,9 @@ use App\Http\Controllers\Admin\VisiMisiController;
 use App\Http\Controllers\VisiMisiPublicController;
 use App\Http\Controllers\Admin\AlumniController;
 use App\Http\Controllers\AlumniPublicController;
+use App\Http\Controllers\Admin\PrestasiController;
+use App\Http\Controllers\PrestasiPublicController;
+
 
 Route::get('/login', function () {
     return redirect()->route('admin.login');
@@ -42,7 +45,11 @@ Route::prefix('jurusan')->name('jurusan.')->group(function () {
     Route::get('/', [JurusanPublicController::class, 'index'])->name('index');
     Route::get('/{id}', [JurusanPublicController::class, 'show'])->name('show');
 });
-
+// Prestasi Routes
+Route::prefix('prestasi')->name('prestasi.')->group(function () {
+    Route::get('/', [PrestasiPublicController::class, 'index'])->name('index');
+    Route::get('/{id}', [PrestasiPublicController::class, 'show'])->name('show');
+});
 // Artikel Routes
 Route::prefix('artikel')->name('artikel.')->group(function () {
     Route::get('/', [ArtikelPublicController::class, 'index'])->name('index');
@@ -118,13 +125,17 @@ Route::prefix('admin')->group(function () {
             'destroy' => 'admin.jurusan.destroy',
         ]);
 
-        Route::get('/prestasi', function () {
-            return redirect()->route('admin.dashboard');
-        })->name('admin.prestasi.index');
-        Route::get('/prestasi/create', function () {
-            return redirect()->route('admin.dashboard');
-        })->name('admin.prestasi.create');
+        // Prestasi Routes 
+        Route::resource('prestasi', PrestasiController::class)->names([
+            'index' => 'admin.prestasi.index',
+            'create' => 'admin.prestasi.create',
+            'store' => 'admin.prestasi.store',
+            'edit' => 'admin.prestasi.edit',
+            'update' => 'admin.prestasi.update',
+            'destroy' => 'admin.prestasi.destroy',
+        ]);
 
+        // Guru Routes
         Route::resource('guru', GuruController::class)->names([
             'index' => 'admin.guru.index',
             'create' => 'admin.guru.create',

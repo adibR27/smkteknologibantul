@@ -9,17 +9,28 @@ class Prestasi extends Model
     protected $table = 'prestasi';
 
     protected $fillable = [
-        'nama_prestasi',
-        'tingkat',
-        'tahun',
-        'penyelenggara',
+        'judul_prestasi',
         'deskripsi',
-        'foto',
-        'status',
+        'gambar',
+        'tingkat',
+        'peraih',
+        'tanggal_perolehan',
+        'penyelenggara',
     ];
 
     protected $casts = [
-        'tahun' => 'integer',
-        'status' => 'boolean',
+        'tanggal_perolehan' => 'date',
     ];
+
+    // Accessor untuk format tanggal Indonesia
+    public function getTanggalPerolehanFormattedAttribute()
+    {
+        return $this->tanggal_perolehan ? $this->tanggal_perolehan->format('d F Y') : '-';
+    }
+
+    // Accessor untuk gambar
+    public function getGambarUrlAttribute()
+    {
+        return $this->gambar ? asset('storage/' . $this->gambar) : null;
+    }
 }
